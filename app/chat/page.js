@@ -14,7 +14,7 @@ export default function Chat() {
   const [sessionId, setSessionId] = useState(null)
   const [blogLoading, setBlogLoading] = useState(false)
   const [blog, setBlog] = useState(null)
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const bottomRef = useRef(null)
 
   useEffect(() => {
@@ -558,6 +558,33 @@ export default function Chat() {
           display: flex;
           gap: 10px;
         }
+        /* Mobile responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 50;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+  }
+
+  .bubble {
+    max-width: 85vw !important;
+  }
+
+  .messages {
+    padding: 16px !important;
+  }
+
+  .input-area {
+    padding: 12px 16px 16px !important;
+  }
+
+  .topbar {
+    padding: 12px 16px !important;
+  }
+}
 
         .copy-btn {
           padding: 10px 20px;
