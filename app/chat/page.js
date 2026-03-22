@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-const API = 'https://Kaushikdeveloper-docmind-rag-backend.hf.space'
+const API = 'https://kaushikdeveloper-docmind-rag-backend.hf.space'
 const USER_ID = 'b1f3bd4d-a402-4311-b876-3720892d198c'
 
 export default function Chat() {
