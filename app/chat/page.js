@@ -14,7 +14,7 @@ export default function Chat() {
   const [sessionId, setSessionId] = useState(null)
   const [blogLoading, setBlogLoading] = useState(false)
   const [blog, setBlog] = useState(null)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
   const bottomRef = useRef(null)
 
   useEffect(() => {
@@ -558,33 +558,6 @@ export default function Chat() {
           display: flex;
           gap: 10px;
         }
-        /* Mobile responsive */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 50;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.5);
-  }
-
-  .bubble {
-    max-width: 85vw !important;
-  }
-
-  .messages {
-    padding: 16px !important;
-  }
-
-  .input-area {
-    padding: 12px 16px 16px !important;
-  }
-
-  .topbar {
-    padding: 12px 16px !important;
-  }
-}
 
         .copy-btn {
           padding: 10px 20px;
@@ -621,45 +594,18 @@ export default function Chat() {
             </p>
           ) : (
             documents.map(doc => (
-                <div
+              <div
                 key={doc.id}
                 className={`doc-item ${selectedDocs.includes(doc.id) ? 'doc-item-selected' : ''}`}
+                onClick={() => toggleDoc(doc.id)}
               >
-                <div
-                  style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1 }}
-                  onClick={() => toggleDoc(doc.id)}
-                >
-                  <div className={`doc-checkbox ${selectedDocs.includes(doc.id) ? 'doc-checkbox-checked' : ''}`}>
-                    {selectedDocs.includes(doc.id) && <span style={{ color: '#080c14', fontSize: '10px', fontWeight: '700' }}>✓</span>}
-                  </div>
-                  <span className={`doc-name ${selectedDocs.includes(doc.id) ? 'doc-name-selected' : ''}`}>
-                    {doc.title}
-                  </span>
-                  <span className="doc-badge">{doc.type}</span>
+                <div className={`doc-checkbox ${selectedDocs.includes(doc.id) ? 'doc-checkbox-checked' : ''}`}>
+                  {selectedDocs.includes(doc.id) && <span style={{ color: '#080c14', fontSize: '10px', fontWeight: '700' }}>✓</span>}
                 </div>
-                <button
-                  onClick={async (e) => {
-                    e.stopPropagation()
-                    if (!confirm('Delete this document?')) return
-                    await fetch(`${API}/documents/${doc.id}`, { method: 'DELETE' })
-                    fetchDocuments()
-                  }}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: '#475569',
-                    cursor: 'pointer',
-                    fontSize: '14px',
-                    padding: '2px 4px',
-                    borderRadius: '4px',
-                    transition: 'color 0.2s',
-                    flexShrink: 0
-                  }}
-                  onMouseOver={e => e.target.style.color = '#f87171'}
-                  onMouseOut={e => e.target.style.color = '#475569'}
-                >
-                  🗑
-                </button>
+                <span className={`doc-name ${selectedDocs.includes(doc.id) ? 'doc-name-selected' : ''}`}>
+                  {doc.title}
+                </span>
+                <span className="doc-badge">{doc.type}</span>
               </div>
             ))
           )}
